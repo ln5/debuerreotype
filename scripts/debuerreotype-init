@@ -6,6 +6,7 @@ source "$thisDir/.constants.sh" \
 	--flags 'debian,debian-eol,non-debian' \
 	--flags 'debootstrap:' \
 	--flags 'debootstrap-script:' \
+	--flags 'keep-debootstrap-dir' \
 	--flags 'keyring:,arch:,include:,exclude:' \
 	--flags 'merged-usr,no-merged-usr' \
 	-- \
@@ -26,6 +27,7 @@ arch=
 include=
 exclude=
 noMergedUsr=
+keepDebootstrapDir=
 while true; do
 	flag="$1"; shift
 	dgetopt-case "$flag"
@@ -41,6 +43,7 @@ while true; do
 		--exclude) exclude="${exclude:+$exclude,}$1"; shift ;;
 		--merged-usr)    noMergedUsr=  ;;
 		--no-merged-usr) noMergedUsr=1 ;;
+                --keep-debootstrap-dir) keepDebootstrapDir=1 ;;
 		--) break ;;
 		*) eusage "unknown flag '$flag'" ;;
 	esac
@@ -107,6 +110,7 @@ fi
 [ -z "$arch" ] || debootstrapArgs+=( --arch="$arch" )
 [ -z "$include" ] || debootstrapArgs+=( --include="$include" )
 [ -z "$exclude" ] || debootstrapArgs+=( --exclude="$exclude" )
+[ -z "$keepDebootstrapDir" ] || debootstrapArgs+=( --keep-debootstrap-dir )
 
 debootstrapArgs+=(
 	"$suite" "$targetDir" "$mirror"
