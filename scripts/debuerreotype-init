@@ -6,6 +6,7 @@ source "$thisDir/.constants.sh" \
 	--flags 'debian,debian-eol,non-debian' \
 	--flags 'debootstrap:' \
 	--flags 'debootstrap-script:' \
+	--flags 'foreign' \
 	--flags 'keep-debootstrap-dir' \
 	--flags 'keyring:,arch:,include:,exclude:' \
 	--flags 'merged-usr,no-merged-usr' \
