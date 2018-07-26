@@ -28,6 +28,7 @@ include=
 exclude=
 noMergedUsr=
 keepDebootstrapDir=
+foreign=
 while true; do
 	flag="$1"; shift
 	dgetopt-case "$flag"
@@ -37,6 +38,7 @@ while true; do
 		--non-debian) nonDebian=1; debianEol=  ;;
 		--debootstrap) debootstrap="$1"; shift ;;
 		--debootstrap-script) script="$1"; shift ;;
+                --foreign) foreign=1; shift ;;
 		--keyring) keyring="$1"; shift ;;
 		--arch) arch="$1"; shift ;;
 		--include) include="${include:+$include,}$1"; shift ;;
@@ -111,6 +113,7 @@ fi
 [ -z "$include" ] || debootstrapArgs+=( --include="$include" )
 [ -z "$exclude" ] || debootstrapArgs+=( --exclude="$exclude" )
 [ -z "$keepDebootstrapDir" ] || debootstrapArgs+=( --keep-debootstrap-dir )
+[ -z "$foreign" ] || debootstrapArgs+=( --foreign )
 
 debootstrapArgs+=(
 	"$suite" "$targetDir" "$mirror"
